@@ -9,12 +9,13 @@
 
 <body>
     <h1>Import</h1>
+    <p>导入模块功能需要在服务器中运行</p>
 
     <script type="module">
         // 导入 ./export.js 中定义的参数
         // 导入参数的参数名需要与导出文件中的一致
         import { name, value } from './export.js';
-        
+
         console.log(name);
         console.log(value);
 
