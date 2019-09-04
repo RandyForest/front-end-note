@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch</title>
+</head>
+
+<body>
+    <h1>fetch</h1>
+    <div></div>
+
+    <script>
+        let url = 'http://localhost:5501/test.json';
+        
+        fetch(url).then(function (response) {
+            console.log(response);
+            response.text().then(function (text) {
+                console.log(text);
+            });
+        });
+    </script>
+</body>
+
+</html>

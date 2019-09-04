@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructor</title>
+</head>
+
+<body>
+    <h1>Constructor</h1>
+    <div></div>
+
+    <script>
+        /**
+         * A类
+         */
+        class A {
+
+            /**
+             * 构造器
+             * 在构造器中获取了一个 name 参数，
+             * 并把此参数作为该类创建的对象的一个属性。
+             */
+            constructor(name) {
+                if (name != null) {
+                    this.setName(name);
+                }
+            }
+
+            /**
+             * 设置name属性
+             * 设置name为该类创建的对象的一个属性
+             */
+            setName(name) {
+                // 把名字首字母转换成大写
+                this.name = name.charAt(0).toUpperCase() + name.substr(1)
+            }
+
+            /**
+             * 获取name属性
+             */
+            getName() {
+                return this.name;
+            }
+        }
+
+        // 使用A类创建对象
+        let a = new A('jone');
+        console.log('a.name: ' + a.name);
+        console.log('a.getName(): ' + a.getName());
+
+        // 使用参数
+        let a2 = new A();
+        a2.setName('jojo');
+        console.log('a.name: ' + a2.name);
+        console.log('a2.getName(): ' + a2.getName());
+
+    </script>
+</body>
+
+</html>

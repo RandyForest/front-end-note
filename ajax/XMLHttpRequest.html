@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMLHttpRequest</title>
+</head>
+
+<body>
+    <h1>XMLHttpRequest</h1>
+    <div id="div"></div>
+
+    <script>
+        let method = 'GET';
+        let url = 'http://localhost:5501/test.json';
+        let isAsync = true;
+        let responseType = 'text'
+        let overrideMimeType="text/plain";
+
+        // 创建
+        let xmlHttpRequest = new XMLHttpRequest();
+        console.log(xmlHttpRequest);
+
+        // 设置
+        xmlHttpRequest.open(method, url, isAsync);
+        xmlHttpRequest.responseType = responseType;
+        xmlHttpRequest.overrideMimeType(overrideMimeType);
+
+        // 生命周期
+        xmlHttpRequest.onabort = function () {
+            console.log('onabort');
+        }
+
+        xmlHttpRequest.onerror = function () {
+            console.log('onerror');
+        }
+
+        xmlHttpRequest.onloadstart = function () {
+            console.log('onloadstart');
+        }
+
+        xmlHttpRequest.onload = function () {
+            console.log('onload');
+            console.log('timeout: ' + xmlHttpRequest.timeout);
+            console.log('withCredentials: ' + xmlHttpRequest.withCredentials);
+            console.log('responseType: ' + xmlHttpRequest.responseType);
+            console.log('responseURL: ' + xmlHttpRequest.responseURL);
+            console.log('response: ' + xmlHttpRequest.response);
+            console.log('getAllResponseHeaders: ' + xmlHttpRequest.getAllResponseHeaders());
+
+            if (xmlHttpRequest.responseType.toLowerCase == 'xml') {
+                console.log('responseXML: ' + xmlHttpRequest.responseXML);
+            }
+
+            if (xmlHttpRequest.responseType.toLowerCase == 'text') {
+                console.log('responseText: ' + xmlHttpRequest.responseText);
+            }
+            
+            console.log('upload: ');
+            console.log(xmlHttpRequest.upload);
+
+
+        }
+
+        xmlHttpRequest.onloadend = function () {
+            console.log('onloadend');
+        }
+
+        xmlHttpRequest.onprogress = function () {
+            console.log('onprogress');
+        }
+
+        xmlHttpRequest.onreadystatechange = function () {
+            console.log('onreadystatechange');
+            console.log('readyState: ' + xmlHttpRequest.readyState);
+            console.log('status: ' + xmlHttpRequest.status);
+            console.log('statusText: ' + xmlHttpRequest.statusText);
+        }
+
+        xmlHttpRequest.ontimeout = function () {
+            console.log('ontimeout');
+        }
+
+        // 发送
+        xmlHttpRequest.send();
+
+    </script>
+</body>
+
+</html>

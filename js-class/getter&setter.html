@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getter & Setter</title>
+</head>
+
+<body>
+    <h1>Getter & Setter</h1>
+    <div></div>
+
+    <script>
+        /**
+         * getter & setter
+         */
+        class A {
+            constructor(name) {
+                this.name = name;
+            }
+
+            /**
+             * 当对象调用myMame属性时执行
+             */
+            get myName() {
+                return 'Get my name: ' + this.name;
+            }
+
+            /**
+             * 当修改name属性时执行该函数
+             */
+            set name(name) {
+                this.yourName = 'Set your name: ' + name;
+            }
+        }
+
+        // 使用B类创建对象
+        let a = new A('jojo');
+        console.log('a.name: ' + a.name);
+        console.log('a.myName: ' + a.myName);
+        console.log('a.yourName: ' + a.yourName);
+
+        let a2 = new A();
+        a2.name = 'jojo';
+        console.log('a2.name: ' + a2.name);
+        console.log('a2.myName: ' + a2.myName);
+        console.log('a2.yourName: ' + a2.yourName);
+
+        console.log('============================');
+        
+        /**
+         * 一般用法
+         */
+        class B {
+            constructor(name) {
+                this.name = name;
+            }
+
+            /**
+             * 当对象调用myMame属性时执行
+             * 把 set name() 创建的对象属性返回
+             */
+            get name() {
+                return this.thisname;
+            }
+
+            /**
+             * 当修改name属性时执行该函数
+             * 执行函数时创建一个对象属性thisname
+             */
+            set name(name) {
+                this.thisname = name;
+            }
+        }
+
+        // 使用B类创建对象
+        let b = new B('jojo');
+        console.log('b.name: ' + b.name);
+
+        let b2 = new B();
+        b2.name = 'jojo';
+        console.log('b2.name: ' + b2.name);
+
+    </script>
+</body>
+
+</html>

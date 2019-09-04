@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1>Ajax</h1>
+    <pre>
+        <div id="show-el">在此显示结果</div>
+    </pre>
+    <button data-send-method="xhrRequest">xhrRequest</button>
+    <button data-send-method="jqLoad">jqLoad</button>
+    <button data-send-method="jqGet">jqGet</button>
+
+    <script>
+
+
+        /**
+         * 1. 给按钮添加点击事件
+         */
+        !(function () {
+            let method = 'GET';
+            let url = 'http://localhost:5500/test-file/test.json';
+            let isAsync = true;
+            let responseType = 'text';
+            let showEl = document.querySelector('#show-el');
+            // let data={name: 'Lepoo', value: 'My name is Lepoo'};
+            let data='name=Lepoo';
+
+            // 给 xhrRequest 按钮添加点击事件
+            document.querySelectorAll('[data-send-method="xhrRequest"]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    xhrRequest(data,url, method, isAsync, responseType, showResponseResult);
+                })
+            })
+
+            // 给 jqLoad 按钮添加点击事件
+            document.querySelectorAll('[data-send-method="jqLoad"]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    jqLoad(data,url, showEl);
+                })
+            })
+
+            // 给 jqGet 按钮添加点击事件
+            document.querySelectorAll('[data-send-method="jqGet"]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    jqGet(data,url, responseType, showEl);
+                })
+            })
+
+            // 渲染响应结果
+            function showResponseResult(showEl,text) {
+                showEl.innerText=text;
+            }
+        })()
+
+
+        // ================= 组件 ====================
+
+        /**
+         * 
+         */
+        function xhrRequest(data, url, method, isAsync, responseType, showEl) {
+            // 创建
+            let xmlHttpRequest = new XMLHttpRequest();
+            // console.log('xmlHttpRequest: ' + xmlHttpRequest);
+
+            // 设置
+            xmlHttpRequest.open(method, url, isAsync);
+            xmlHttpRequest.responseType = responseType;
+            
+            xmlHttpRequest.onload = function () {
+                console.log('== 原生请求 XMLHttpRequest#onload() ==');
+                console.log('timeout: ' + xmlHttpRequest.timeout);
+                console.log('withCredentials: ' + xmlHttpRequest.withCredentials);
+                console.log('responseType: ' + xmlHttpRequest.responseType);
+                console.log('responseURL: ' + xmlHttpRequest.responseURL);
+                console.log('response: ' + xmlHttpRequest.response);
+
+                showResponseResult(showEl,)
+                showEl.innerText = xmlHttpRequest.response;
+            }
+
+            // 发送
+            xmlHttpRequest.send(data);
+        }
+
+        /**
+         * 
+         */
+        function fetchRequest(url) {
+            fetch(url).then(function (response) {
+                console.log(response);
+                response.text().then(function (text) {
+                    console.log(text);
+                });
+            });
+        }
+
+        /**
+         * 
+         */
+        function jqLoad(data,url, showEl) {
+            $(showEl).load(url, data, function (responseText, textStatus, xmlHttpRequest) {
+                console.log('== Jquery请求 Jquery#load() ==');
+                console.log('responseText: ' + responseText);
+                console.log('textStatus: ' + textStatus);
+                console.log('xmlHttpRequest: ' + xmlHttpRequest);
+                console.log('xmlHttpRequest.response: ' + xmlHttpRequest.response);
+            });
+        }
+
+        /**
+         * 
+         */
+        function jqGet(data,url, responseType, showEl) {
+            $.get(url, data, function (data, textStatus, xmlHttpRequest) {
+                console.log('== Jquery请求 Jquery#get() ==');
+                console.log('data: ' + data);
+                console.log('textStatus: ' + textStatus);
+                console.log('xmlHttpRequest: ' + xmlHttpRequest);
+                console.log('xmlHttpRequest.response: ' + xmlHttpRequest.response);
+
+                $(showEl).text(xmlHttpRequest.response);
+
+            }, responseType)
+
+        }
+
+        /**
+         * 
+         */
+        function jqAjax(url, method, isAsync, responseType) {
+            $.ajax({
+                url: url,
+                data: 'dataB',
+                success: 'success',
+                dataType: responseType
+            })
+        }
+
+
+
+    </script>
+</body>
+
+</html>

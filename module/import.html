@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import</title>
+</head>
+
+<body>
+    <h1>Import</h1>
+
+    <script type="module">
+        // 导入 ./export.js 中定义的参数
+        // 导入参数的参数名需要与导出文件中的一致
+        import { name, value } from './export.js';
+        
+        console.log(name);
+        console.log(value);
+
+        // 导入参数的参数名不需要与导出文件中的一致
+        import myId from './export.js';
+        console.log(myId);
+
+    </script>
+</body>
+
+</html>
